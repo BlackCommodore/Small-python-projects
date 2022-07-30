@@ -5,7 +5,7 @@ try:
 except ImportError:
     pass
 
-SYMBOLS = 'AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUWXYZŹŻ'
+SYMBOLS = 'AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUWXYZŹŻ '
 
 # User choose to encrypt or decrypt message
 while True:  # ask until user put correct answer
@@ -69,4 +69,4 @@ try:
     pyperclip.copy(translated)
     print(f'Text to {mode} was copied to the clipboard')
 except:
-    print("Download pypetclip to copy to the clipboard")
+    print("Download pyperclip to copy to the clipboard")
