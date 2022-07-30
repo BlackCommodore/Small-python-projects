@@ -1,4 +1,4 @@
-import datetime
+import datetime, sys
 
 print('Own version of the calendar')
 
@@ -26,10 +26,10 @@ while True:
     print('Please input a valid month. f.eg. 5')
     continue
 
+
 def getCalendar(month, year):
     calText = ''
     currentDate = datetime.date(year, month, 1)
-
 
     firstRows = ''
     horizontalLine = '+----------' * 7 + '+\n'
@@ -57,7 +57,16 @@ def getCalendar(month, year):
         if str(datetime.date(year=year, month=month + 1, day=1) - datetime.timedelta(days=1)) in days:
             break
         firstRows = ''
-    print(calText)
+    return calText
 
-getCalendar(month, year)
+createdCalendar = getCalendar(month, year)
+print(createdCalendar)
+
+print('Do you want to save calendar to txt file? (yes or no)')
+answer = input('> ').lower()
+if answer.startswith('y'):
+    with open(f'calendar_{month}-{year}.txt', 'w') as calendar:
+        calendar.write(createdCalendar)
+        print(f"File saved as {calendar}")
+sys.exit()
 
