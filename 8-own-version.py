@@ -6,6 +6,7 @@ DAYS = ('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Satur
 MONTHS = ('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November',
           'December')
 
+
 while True:
     print('What year do you want?')
     response = input('> ')
@@ -27,34 +28,39 @@ while True:
     continue
 
 
+
 def getCalendar(month, year):
     calText = ''
     currentDate = datetime.date(year, month, 1)
-
+    holidays = [f'{year}-08-15', f'{year}-01-01', f'{year}-01-06', f'{year}-04-17', f'{year}-05-01', f'{year}-05-03',
+                f'{year}-06-05', f'{year}-06-16', f'{year}-11-01', f'{year}-11-11', f'{year}-12-25', f'{year}-12-26']
     firstRows = ''
     horizontalLine = '+----------' * 7 + '+\n'
     horizontalBlank = '|          ' * 7 + '|\n'
 
+
     while currentDate.isoweekday() != 7:
         currentDate -= datetime.timedelta(days=1)
 
-    calText += '          ' * 3 + MONTHS[month - 1] + '  ' + str(year) + '\n'
+    calText += '          ' * 3 + MONTHS[month - 1] + '  ' + str(year) + '\n'  # print on top month and year
     calText += '...Sunday.....Monday....Tuesday...Wednesday...Thursday....Friday....Saturday..' + '\n'
     calText += horizontalLine
-    days = []
+    holidayMarker = ' '
     while True:
         for i in range(7):
+            if str(currentDate) in holidays:
+                holidayMarker = 'H'
             if len(str(currentDate.day)) == 1:
-                blanks = '         '
+                blanks = f'       {holidayMarker} '
             else:
-                blanks = '        '
+                blanks = f'      {holidayMarker} '
             firstRows += ('|' + str(currentDate.day) + blanks)
-            days.append(str(currentDate))
             currentDate += datetime.timedelta(days=1)
+            holidayMarker = ' '
         calText += firstRows + '|\n'
         calText += (horizontalBlank * 3 + horizontalLine)
 
-        if str(datetime.date(year=year, month=month + 1, day=1) - datetime.timedelta(days=1)) in days:
+        if month != currentDate.month:
             break
         firstRows = ''
     return calText
